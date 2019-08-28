@@ -7,12 +7,12 @@ import com.victorwangzhen.coolapp.model.jpa.dao.UserDao;
 import com.victorwangzhen.coolapp.model.entity.User;
 import com.victorwangzhen.coolapp.model.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -25,58 +25,32 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/jpa/user")
-    public String getUser(HttpServletRequest httpServletRequest){
-        if(userDao.findAll().size() != 0){
-            User user = userDao.findAll().get(0);
-            return user.getId();
+    @GetMapping("/jpa/user/{id}")
+    public User getUser(HttpServletRequest httpServletRequest, @PathVariable("id") String id){
+        if(userDao.existsById(id)){
+            User user = userDao.findById(id).get();
+            return user;
         }
-        return "wrong";
+        return null;
 
     }
 
     @PostMapping("/save")
-    public boolean createUser(HttpServletRequest httpServletRequest){
+    public boolean createUser(HttpServletRequest httpServletRequest, @RequestBody User user){
         //do not use anonymous inner class to create user, cuz this cls does have @entity after compiling.
-        User user = new User();
-        user.setId("test");
-        user.setPassword("pwd");
-        user.setUsername("name");
 
         Object rst = userDao.save(user);
 
-
-
-        return true;
+        return rst != null;
 
     }
 
     @GetMapping("/mybatis/user")
-    public int getUserByMybatis(HttpServletRequest httpServletRequest){
+    public List<User> getUserByMybatis(HttpServletRequest httpServletRequest){
         List<User> userList = userMapper.getAll();
 
-        return  userList.size();
+        return  userList;
     }
 
 
-    @Autowired
-    private UserRedisDataKeeper redisDataKeeper;
-
-    @GetMapping("/jedis")
-    public boolean getJedis(HttpServletRequest httpServletRequest){
-
-        User user = new User();
-        user.setId("test");
-        user.setPassword("pwd2");
-        user.setUsername("name");
-
-        RedisObject redisObject = redisDataKeeper.get("test");
-
-        long rst = redisDataKeeper.set("test", new RedisObject(user));
-
-        RedisObject redisObject1 = redisDataKeeper.get("test");
-
-        return true;
-
-    }
 }
