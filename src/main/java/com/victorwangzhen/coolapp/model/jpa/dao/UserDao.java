@@ -1,4 +1,4 @@
-package com.victorwangzhen.coolapp.model.dao;
+package com.victorwangzhen.coolapp.model.jpa.dao;
 
 
 import com.victorwangzhen.coolapp.model.entity.User;

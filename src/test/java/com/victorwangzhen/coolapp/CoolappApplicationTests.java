@@ -1,6 +1,6 @@
 package com.victorwangzhen.coolapp;
 
-import com.victorwangzhen.coolapp.model.dao.UserDao;
+import com.victorwangzhen.coolapp.model.jpa.dao.UserDao;
 import com.victorwangzhen.coolapp.model.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,12 +17,15 @@ public class CoolappApplicationTests {
 
 	@Test
 	public void test001_jpaTest() {
+		User user = new User();
+		user.setId("test");
+		user.setPassword("pwd");
+		user.setUsername("name");
 
-
-		User user1 = userDao.findAll().get(0);
-
-		System.out.println(user1);
+		Object rst = userDao.save(user);
+		System.out.println(rst);
 
 	}
+
 
 }
