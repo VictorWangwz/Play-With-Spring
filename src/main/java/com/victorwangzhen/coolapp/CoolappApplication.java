@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.victorwangzhen.coolapp.model"})
-@MapperScan("com.victorwangzhen.coolapp.model.mybatis.mapper")
+@EntityScan(basePackages = {"com.victorwangzhen.coolapp.repsitory"})
+@MapperScan("com.victorwangzhen.coolapp.repsitory.mybatis.mapper")
 public class CoolappApplication {
 
 	public static void main(String[] args) {

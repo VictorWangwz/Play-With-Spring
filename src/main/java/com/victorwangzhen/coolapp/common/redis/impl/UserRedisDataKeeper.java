@@ -1,9 +1,7 @@
 package com.victorwangzhen.coolapp.common.redis.impl;
 
 import com.victorwangzhen.coolapp.common.redis.RedisDataKeeper;
-import com.victorwangzhen.coolapp.model.entity.User;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import com.victorwangzhen.coolapp.repsitory.entity.User;
 
 
 public class UserRedisDataKeeper extends RedisDataKeeper {

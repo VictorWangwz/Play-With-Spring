@@ -1,18 +1,14 @@
 package com.victorwangzhen.coolapp.controller;
 
 
-import com.victorwangzhen.coolapp.common.redis.impl.UserRedisDataKeeper;
-import com.victorwangzhen.coolapp.common.redis.model.RedisObject;
-import com.victorwangzhen.coolapp.model.jpa.dao.UserDao;
-import com.victorwangzhen.coolapp.model.entity.User;
-import com.victorwangzhen.coolapp.model.mybatis.mapper.UserMapper;
+import com.victorwangzhen.coolapp.delegate.UserServiceDelegate;
+import com.victorwangzhen.coolapp.repsitory.entity.User;
+import com.victorwangzhen.coolapp.repsitory.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -20,36 +16,34 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserServiceDelegate userServiceDelegate;
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
 
     @GetMapping("/jpa/user/{id}")
     public User getUser(HttpServletRequest httpServletRequest, @PathVariable("id") String id){
-        if(userDao.existsById(id)){
-            User user = userDao.findById(id).get();
-            return user;
-        }
-        return null;
 
+        return userServiceDelegate.getUser(id, null, null);
+    }
+
+    @RequestMapping(path = "/login-page")
+    public String login(HttpServletRequest httpServletRequest){
+        return "Success";
     }
 
     @PostMapping("/save")
     public boolean createUser(HttpServletRequest httpServletRequest, @RequestBody User user){
-        //do not use anonymous inner class to create user, cuz this cls does have @entity after compiling.
-
-        Object rst = userDao.save(user);
-
-        return rst != null;
+        return userServiceDelegate.createUser(user);
 
     }
 
     @GetMapping("/mybatis/user")
     public List<User> getUserByMybatis(HttpServletRequest httpServletRequest){
-        List<User> userList = userMapper.getAll();
-
-        return  userList;
+        return userServiceDelegate.getUserV2();
     }
 
 
