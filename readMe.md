@@ -16,12 +16,15 @@ Spend sometime reading the source code and write some basic implementations to e
 #### mybatis
 #### jpa
 #### redis/ redis distribute lock
+#### (caffeine cache and tri-level cache)
 #### spring security
 #### interceptor, filter
  Implementation sequence. \
  Read source code to know how they works.
 #### Docker deployment
 #### (ServiceComb)
+
+
 
 
 
