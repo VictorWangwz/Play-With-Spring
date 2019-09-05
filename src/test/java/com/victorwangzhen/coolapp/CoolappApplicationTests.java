@@ -1,7 +1,7 @@
 package com.victorwangzhen.coolapp;
 
+import com.victorwangzhen.coolapp.repsitory.entity.UserEntity;
 import com.victorwangzhen.coolapp.repsitory.jpa.dao.UserDao;
-import com.victorwangzhen.coolapp.repsitory.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class CoolappApplicationTests {
 
 	@Test
 	public void test001_jpaTest() {
-		User user = new User();
-		user.setId("test");
-		user.setPassword("pwd");
-		user.setUsername("name");
+		UserEntity userEntity = new UserEntity();
+		userEntity.setId("test");
+		userEntity.setPassword("pwd");
+		userEntity.setUsername("name");
 
-		Object rst = userDao.save(user);
+		Object rst = userDao.save(userEntity);
 		System.out.println(rst);
 
 	}

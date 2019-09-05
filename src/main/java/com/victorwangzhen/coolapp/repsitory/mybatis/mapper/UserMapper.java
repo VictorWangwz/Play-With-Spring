@@ -1,7 +1,7 @@
 package com.victorwangzhen.coolapp.repsitory.mybatis.mapper;
 
 
-import com.victorwangzhen.coolapp.repsitory.entity.User;
+import com.victorwangzhen.coolapp.repsitory.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 public interface UserMapper {
 
 
-    Integer insert(User user);
+    Integer insert(UserEntity userEntity);
 
 
-    List<User> getAll();
+    List<UserEntity> getAll();
 
 }

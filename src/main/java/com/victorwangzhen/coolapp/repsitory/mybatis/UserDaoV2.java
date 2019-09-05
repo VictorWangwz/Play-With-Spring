@@ -1,6 +1,6 @@
 package com.victorwangzhen.coolapp.repsitory.mybatis;
 
-import com.victorwangzhen.coolapp.repsitory.entity.User;
+import com.victorwangzhen.coolapp.repsitory.entity.UserEntity;
 import com.victorwangzhen.coolapp.repsitory.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,10 +13,10 @@ public class UserDaoV2 {
     @Autowired
     private UserMapper userMapper;
 
-    public List<User> getUser(){
-        List<User> userList = userMapper.getAll();
+    public List<UserEntity> getUser(){
+        List<UserEntity> userEntityList = userMapper.getAll();
 
-        return  userList;
+        return userEntityList;
     }
 
 

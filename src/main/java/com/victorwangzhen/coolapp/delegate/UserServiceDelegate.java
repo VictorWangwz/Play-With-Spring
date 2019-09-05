@@ -1,15 +1,15 @@
 package com.victorwangzhen.coolapp.delegate;
 
-import com.victorwangzhen.coolapp.repsitory.entity.User;
+import com.victorwangzhen.coolapp.repsitory.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserServiceDelegate {
 
-    boolean createUser(User user);
+    boolean createUser(UserEntity userEntity);
 
-    User getUser(String id, String username, String email);
+    UserEntity getUser(String id, String username, String email);
 
-    List<User> getUserV2();
+    List<UserEntity> getUserV2();
 
 }

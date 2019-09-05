@@ -1,4 +1,4 @@
 use mysql;
-update user set host = "%" where user='root';
-ALter user 'root'@'%' identified WITH mysql_native_password by '00000000';
+update userEntity set host = "%" where userEntity='root';
+ALter userEntity 'root'@'%' identified WITH mysql_native_password by '00000000';
 flush privileges ;

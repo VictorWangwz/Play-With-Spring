@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User  {
+public class UserEntity {
 
     @Id
     private String id;
@@ -25,8 +25,13 @@ public class User  {
     @Column(length = 64)
     private String password;
 
-    @Convert(converter = StringListConverter.class)
-    private List<String> roles;
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = {@JoinColumn(name = "uid", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "rid", referencedColumnName = "id")}
+    )
+    private List<RoleEntity> roles;
 
     @Column(length = 64)
     private String email;
@@ -55,11 +60,11 @@ public class User  {
         this.password = password;
     }
 
-    public List<String> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
     }
 
